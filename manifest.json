@@ -3,7 +3,7 @@
 
   "name": "Grandstream Click To Call v2",
   "description": "This extension allows remote control of your Grandstream handset.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "icons": {
     "16":"assets/icons/icon.png",
     "48":"assets/icons/icon.png",
