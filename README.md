@@ -16,6 +16,12 @@ Enable developer options by clicking the checkmark at the top.
 Click on "load unpacked extension" then select the folder where the GS CTC files are located in.
 Inside the folder open "popup.js" and change the IP on line 129 to your handset (default is ```192.168.0.23```).
 
+# Security
+If you limit the extension to specific URLs, you should also add the URL of your phone
+to the list - e.g. http://192.168.0.200 - change it to your phone.
+
+This is found under the 'Site Access' section of the extension configuration.
+
 # Usage
 Click the greeny/teal phone icon that appears in your browsers extension area.  (usually the top right)
 Here you can see the IP you've set and the current status (will take a moment to update on first open)
