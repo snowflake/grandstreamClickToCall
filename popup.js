@@ -12,11 +12,11 @@ function Handset(ip, protocol, password) {
 
     this.updateStatus = function (status, callback) {
         //console.log("status: " + status);
-        if (document.getElementById("phone_details_title")) document.getElementById("phone_details_title").remove();
-        document.getElementById("phone_details_ip").innerHTML = "<strong>IP Address: </strong>" + self.ip;
+        if (document.getElementById("phone_details_title")) {document.getElementById("phone_details_title").remove();}
+        if (document.getElementById("phone_details_ip")) {document.getElementById("phone_details_ip").innerHTML = "<strong>IP Address: </strong>" + self.ip; }
         if (status === "available") self.status = "Ready to Dial";
         if (status === "busy") self.status = "Busy";
-        document.getElementById("phone_details_status").innerHTML = "<strong>Status: </strong>" + self.status;
+        if (document.getElementById("phone_details_status")) {document.getElementById("phone_details_status").innerHTML = "<strong>Status: </strong>" + self.status;}
         if(callback) callback();  //check before calling it.
     };
 
@@ -60,6 +60,7 @@ function Handset(ip, protocol, password) {
         //Call the handset"s api
         var callUrl = this.protocol + this.ip + this.api_start_call + "?phonenumber=" + number +
             "&account=" + account + "&password=" + this.password;
+        //console.log(callUrl);
         var x = new XMLHttpRequest(); //Make a new http request
         x.open("GET", callUrl); // Make it a get request
         x.responseType = "json"; // The handset API responds with JSON - var"s parse it
@@ -168,17 +169,19 @@ console.log("IP: " + phone.protocol + phone.ip + " password: " + phone.password)
 
 document.addEventListener("DOMContentLoaded", function () {
     // Attach listeners to all the buttons
-    document.getElementById("type_to_dial_submit").addEventListener("click", phone.startCallTyped, false);
-    document.getElementById("phone_actions_acceptcall").addEventListener("click", phone.acceptCall, false);
-    document.getElementById("phone_actions_endcall").addEventListener("click", phone.endCall, false);
-    document.getElementById("phone_actions_holdcall").addEventListener("click", phone.holdCall, false);
-    document.getElementById("phone_actions_reboot").addEventListener("click", phone.reboot, false);
+    document.getElementById("type_to_dial_submit") && document.getElementById("type_to_dial_submit").addEventListener("click", phone.startCallTyped, false);
+    document.getElementById("phone_actions_acceptcall") && document.getElementById("phone_actions_acceptcall").addEventListener("click", phone.acceptCall, false);
+    document.getElementById("phone_actions_endcall") && document.getElementById("phone_actions_endcall").addEventListener("click", phone.endCall, false);
+    document.getElementById("phone_actions_holdcall") && document.getElementById("phone_actions_holdcall").addEventListener("click", phone.holdCall, false);
+    document.getElementById("phone_actions_reboot") && document.getElementById("phone_actions_reboot").addEventListener("click", phone.reboot, false);
 
-    // Get initial status then do it again every x seconds
-    phone.getStatus(phone.updateStatus);
-    window.setInterval(function () {
-        phone.getStatus(phone.updateStatus)
-    }, phone.update_delay);
+    if (document.getElementById("type_to_dial_submit")) {
+      // Get initial status then do it again every x seconds
+      phone.getStatus(phone.updateStatus);
+      window.setInterval(function () {
+          phone.getStatus(phone.updateStatus)
+      }, phone.update_delay);
+    }
 });
 
 chrome.runtime.onMessage.addListener(function (message) {
